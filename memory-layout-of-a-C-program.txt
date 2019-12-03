@@ -1,0 +1,11 @@
+stack  automatic and local variable  [unitialized var initialized with garbage value]
+heap   dynamically allocated
+text   code instructions  read-only
+data segment (initialized) static and global   read and read-write
+const int x = 30; //read only
+int y = 10; // read-write
+bss (unitialized) block started by symbol  [ unitialized static and global ]
+
+unitialized static and global variable initialized by 0]
+
+
