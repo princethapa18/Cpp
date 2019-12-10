@@ -88,7 +88,8 @@ int main()
 
     d1ptr->fun2(); //  D2's VTable  ---> D2::fun2()
     d1ptr->fun1(); //  D2's VTable  ---> D1::fun1()
-    d1ptr->fun3(); //  D2's VTable  ---> D1::fun3()
+    d1ptr->fun3(); //  If D2 doesn't have fun3() then  D2's VTable  ---> D1::fun3() 
+                   //  If D2 has fun3()  then D2's VTable ---> D2::fun3()
     */
 
     D1 d1;
