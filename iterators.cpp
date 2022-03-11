@@ -3,6 +3,7 @@
 */
 #include <iostream>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -10,6 +11,31 @@ struct Point
 {
     float x, y;
     explicit Point(float a = 0.f, float b = 0.f) : x{a}, y {b} {}
+};
+
+struct Test
+{
+    int val;
+    explicit Test(int x = 0) : val{x} {}
+};
+
+// gives a max heap
+struct CompareValLesser {
+    bool operator()(Test const& p1, Test const& p2)
+    {
+        // return "true" if "p1" is ordered
+        // before "p2", for example:
+        return p1.val < p2.val;
+    }
+};
+
+// Need to understand how this works
+struct CompareValGreater 
+{
+    bool operator()(Test const& p1, Test const& p2)
+    {
+        return p1.val > p2.val;
+    }
 };
 
 int main()
@@ -74,6 +100,34 @@ int main()
     x:46 y: 52.5
     x:51 y: 57.5
     */
+
+   {
+       //priority_queue<Test, vector<Test> , [](const Test& p1 , const Test& p2) { return p1.val < p2.val;} > minHeap;  was giving some error
+       //priority_queue<Test, vector<Test> , CompareValLesser > maxHeap;  // Gives max heap
+
+       //auto greater = [](const Test& p1, const Test& p2) -> bool { return p1.val > p2.val };
+       // error: type/value mismatch at argument 3 in template parameter list for ‘template<class _Tp, class _Sequence, class _Compare> class std::priority_queue’
+       // priority_queue<Test, vector<Test> , greater > minHeap;
+       priority_queue<Test, vector<Test> , CompareValGreater > minHeap; 
+
+       Test t1{4};
+       minHeap.push(t1);
+       Test t2{3};
+       minHeap.push(t2);
+       Test t3{6};
+       minHeap.push(t3);
+       Test t4{7};
+       minHeap.push(t4);
+       Test t5{1};
+       minHeap.push(t5);
+
+       while( !minHeap.empty() )
+       {
+           Test t = minHeap.top();
+           cout << t.val << " ";
+           minHeap.pop();
+       }
+   }
 
     return 0;
 }
